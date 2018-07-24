@@ -1,0 +1,159 @@
+<link rel="import" href="../static/common/bower/polymer/polymer.html" />
+<link rel="import" href="crouton-card.html" />
+<link rel="import" href="../static/common/bower/paper-listbox/paper-listbox.html" />
+<link rel="import" href="../static/common/bower/paper-item/paper-item.html" />
+<dom-module id="assim-weekview">
+    <template>
+        <link rel="stylesheet" href="../css/assim-weekview.css" />
+        <crouton-card color="{{endPointJson.color}}">
+            <div class="dragger">
+                    <div class="listbox_header">MON</div>
+                    <div class="listbox_header">TUE</div>
+                    <div class="listbox_header">WED</div>
+                    <div class="listbox_header">THU</div>
+                    <div class="listbox_header">FRI</div>
+                    <div class="listbox_header">SAT</div>
+                    <div class="listbox_header">SUN</div>
+            </div>
+            <div class="expand">
+                <div class="listbox_container">
+                    <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesMon}}">
+                        <template is="dom-repeat" items="[[itemsDay]]">
+                            <paper-item>[[item.start]] - [[item.end]]</paper-item>
+                        </template>
+                    </paper-listbox>
+                </div>
+                <div class="listbox_container">
+                    <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesTue}}">
+                        <template is="dom-repeat" items="[[itemsDay]]">
+                            <paper-item>[[item.start]] - [[item.end]]</paper-item>
+                        </template>
+                    </paper-listbox>
+                </div>
+                <div class="listbox_container">
+                    <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesWed}}">
+                        <template is="dom-repeat" items="[[itemsDay]]">
+                            <paper-item>[[item.start]] - [[item.end]]</paper-item>
+                        </template>
+                    </paper-listbox>
+                </div>
+                <div class="listbox_container">
+                    <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesThu}}">
+                        <template is="dom-repeat" items="[[itemsDay]]">
+                            <paper-item>[[item.start]] - [[item.end]]</paper-item>
+                        </template>
+                    </paper-listbox>
+                </div>
+                <div class="listbox_container">
+                    <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesFri}}">
+                        <template is="dom-repeat" items="[[itemsDay]]">
+                            <paper-item>[[item.start]] - [[item.end]]</paper-item>
+                        </template>
+                    </paper-listbox>
+                </div>
+                <div class="listbox_container">
+                        <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesSat}}">
+                            <template is="dom-repeat" items="[[itemsDay]]">
+                                <paper-item>[[item.start]] - [[item.end]]</paper-item>
+                            </template>
+                        </paper-listbox>
+                    </div>
+                    <div class="listbox_container">
+                            <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesSun}}">
+                                <template is="dom-repeat" items="[[itemsDay]]">
+                                    <paper-item>[[item.start]] - [[item.end]]</paper-item>
+                                </template>
+                            </paper-listbox>
+                        </div>
+                        </div>
+        </crouton-card>
+    </template>
+    <script>
+        (function () {
+            Polymer({
+                is: "assim-weekview",
+                properties: {
+                    endPointJson: {
+                        type: Object,
+                        notify: true
+                    },
+                    itemsDay: {
+                        notify: true,
+                        type: Array
+                    },
+                    selectedValuesMon: {
+                        notify: true,
+                        type: Array,
+                        value: () => []
+                    },
+                    selectedValuesTue: {
+                        notify: true,
+                        type: Array,
+                        value: () => []
+                    },
+                    selectedValuesWed: {
+                        notify: true,
+                        type: Array,
+                        value: () => []
+                    },
+                    selectedValuesThu: {
+                        notify: true,
+                        type: Array,
+                        value: () => []
+                    },
+                    selectedValuesFri: {
+                        notify: true,
+                        type: Array,
+                        value: () => []
+                    },
+                    selectedValuesSat: {
+                        notify: true,
+                        type: Array,
+                        value: () => []
+                    },
+                    selectedValuesSun: {
+                        notify: true,
+                        type: Array,
+                        value: () => []
+                    }
+                },
+                observers: [
+                    'newValues(endPointJson.values.*)'
+                ],
+                ready: function () {
+                    this.buildTimeArray('itemsDay');
+                },
+                attached: function () {
+
+                },
+                newValues: function (changeRecord) {
+
+                },
+                buildTimeArray: function (timeArrayString) {
+                    this[timeArrayString] = [];
+                    var hrDivs = 4;
+                    var mins = 60 / hrDivs;
+                    for (var i = 0; i < 24; i++) {
+                        for (var j = 0; j < hrDivs; j++) {
+                            var startVal = this.pad(i, 2) + ":" + this.pad((j * mins), 2);
+                            var endVal = "";
+                            var endMins = ((j + 1) * mins);
+                            if (endMins == 60) {
+                                endVal = this.pad(i + 1, 2) + ":00";
+                            } else {
+                                endVal = this.pad(i, 2) + ":" + this.pad(endMins, 2);
+                            }
+                            var item = { start: startVal, end: endVal };
+                            this.push(timeArrayString, item);
+                        }
+                    }
+                },
+                pad: function (n, width, z) {
+                    z = z || '0';
+                    n = n + '';
+                    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+                }
+            });
+        }());
+    </script>
+</dom-module>
