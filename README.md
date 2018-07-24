@@ -16,3 +16,10 @@ CORS friendly webcomponents hosted from WiFi thing webserver.
 
 Show/hide cards from "Device card"
 
+![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-1.png)
+
+![Device Card Default](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-device-1.png)
+
+![Device Card Show/Hide list](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-device-2.png)
+
+![Device Card Hide card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-device-3.png)
