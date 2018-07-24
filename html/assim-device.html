@@ -5,11 +5,15 @@
     <link rel="stylesheet" href="../css/assim-device.css"/>
     <link rel="import" href="../static/common/bower/paper-listbox/paper-listbox.html" />
     <link rel="import" href="../static/common/bower/paper-item/paper-item.html" />
+    <link rel="import" href="../static/common/bower/iron-signals/iron-signals.html">
+
+    <iron-signals on-iron-signal-hidecardsignal="_listenHideCardSignal"></iron-signals>
+
     <crouton-card color="{{endPointJson.color}}">
       <div class="dragger"></div>
       <div class="expand">
         <!-- SHOW HIDE ICON -->
-        <span  class="show_hide_img"><i on-click="toggleShowList" class="fa fa-eye" id="eye_icon"></i></span>
+        <span  class="show_hide_img"><i on-click="toggleShowList" class="fa fa-eye" id="eye_icon" title="show/hide device cards"></i></span>
         <!-- DEVICE FORM -->
         <div id="device_form">
             <div class="in-card-label">MQTT TOPICS</div>
@@ -117,7 +121,7 @@
                     for (var i = 0; i < this.endPointJson.endpoints.length; i++){
                         if (this.selectedValues.indexOf(i) == -1){
                             if (this.isCardVisible(i)){
-                                this.$.show_list.selectIndex(i)
+                                this.$.show_list.selectIndex(i);
                             }
                         }
                     }
@@ -128,9 +132,25 @@
                     return card.style.display != "none";
                 },
                 getCardHTMLElement: function(index){
-                    var id = "crouton-" + this.endPointJson.device_name + "-" + this.endPointJson.endpoints[index].endpoint;
-                    console.log(id);
+                    var id = this.getCardHTMLElementId(index);
                     return document.getElementById(id);
+                },
+                getCardHTMLElementId: function(index){
+                    return  "crouton-" + this.endPointJson.device_name + "-" + this.endPointJson.endpoints[index].endpoint;
+                },
+                _listenHideCardSignal: function(e){
+                    if (e.detail != null){
+                        var cardId = e.detail;
+                        // hide card
+                        document.getElementById(cardId).style.display = "none";
+                        // unselect listbox item
+                        for (var i = 0; i < this.endPointJson.endpoints.length; i++){
+                            var endpointId = this.getCardHTMLElementId(i);
+                            if (endpointId == cardId){
+                                this.$.show_list.selectIndex(i);
+                            }
+                        }
+                    }
                 }
             });
         }());
