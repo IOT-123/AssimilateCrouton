@@ -7,13 +7,13 @@
         <link rel="stylesheet" href="../css/assim-weekview.css" />
         <crouton-card color="{{endPointJson.color}}">
             <div class="dragger">
-                    <div class="listbox_header">MON</div>
-                    <div class="listbox_header">TUE</div>
-                    <div class="listbox_header">WED</div>
-                    <div class="listbox_header">THU</div>
-                    <div class="listbox_header">FRI</div>
-                    <div class="listbox_header">SAT</div>
-                    <div class="listbox_header">SUN</div>
+                <div class="listbox_header">MON</div>
+                <div class="listbox_header">TUE</div>
+                <div class="listbox_header">WED</div>
+                <div class="listbox_header">THU</div>
+                <div class="listbox_header">FRI</div>
+                <div class="listbox_header">SAT</div>
+                <div class="listbox_header">SUN</div>
             </div>
             <div class="expand">
                 <div class="listbox_container">
@@ -52,20 +52,21 @@
                     </paper-listbox>
                 </div>
                 <div class="listbox_container">
-                        <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesSat}}">
-                            <template is="dom-repeat" items="[[itemsDay]]">
-                                <paper-item>[[item.start]] - [[item.end]]</paper-item>
-                            </template>
-                        </paper-listbox>
-                    </div>
-                    <div class="listbox_container">
-                            <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesSun}}">
-                                <template is="dom-repeat" items="[[itemsDay]]">
-                                    <paper-item>[[item.start]] - [[item.end]]</paper-item>
-                                </template>
-                            </paper-listbox>
-                        </div>
-                        </div>
+                    <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesSat}}">
+                        <template is="dom-repeat" items="[[itemsDay]]">
+                            <paper-item>[[item.start]] - [[item.end]]</paper-item>
+                        </template>
+                    </paper-listbox>
+                </div>
+                <div class="listbox_container">
+                    <paper-listbox slot="dropdown-content" id="times_mon" multi selected-values="{{selectedValuesSun}}">
+                        <template is="dom-repeat" items="[[itemsDay]]">
+                            <paper-item>[[item.start]] - [[item.end]]</paper-item>
+                        </template>
+                    </paper-listbox>
+                </div>
+            </div>
+            <div class="titleDisplay">{{endPointJson.title}}</div>
         </crouton-card>
     </template>
     <script>

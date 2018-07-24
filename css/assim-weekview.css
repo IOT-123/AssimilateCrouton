@@ -81,10 +81,11 @@ assim-weekview crouton-card .expand {
 
 assim-weekview .titleDisplay {
     font-size: 24px;
-    bottom: 25px;
+    bottom: 28px;
     left: 0;
-    width: 100%;
-    position: absolute
+    width: 98%;
+    position: absolute;
+    background-color: white;
 }
 
 assim-weekview crouton-card .cardInner {
@@ -106,7 +107,7 @@ assim-weekview .listbox_header {
     padding-right: 5px;
     font-size: 12px;
     font-weight: bold;
-    background-color: white;
+    background-color: #c8c8c8;
 }
 
 assim-weekview .iron-selected {
@@ -125,4 +126,15 @@ assim-weekview .paper-item-0, .paper-item-0 .paper-item.paper-item {
 
 assim-weekview .dragger{
     padding: 0 !important;
+    position: absolute;
+    height: 17px !important;
+    z-index: 10000;
+    opacity: 1;
+    width: 98% !important;
+}
+
+assim-weekview .dropShadow:hover .titleDisplay {
+        -webkit-transform: scale(0.01, 1);
+        -ms-transform: scale(0.01, 1);
+        transform: scale(0.01, 1);
 }
