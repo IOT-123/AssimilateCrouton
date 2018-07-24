@@ -64,9 +64,11 @@
                     }
                 },
                 addDevice: function(device, deviceJson) {
-                    deviceJson.endPoints["HEARTBEAT"] = {};
-                    deviceJson.endPoints["HEARTBEAT"]["card-type"] = "crouton-heartbeat";
-                    deviceJson.endPoints["HEARTBEAT"]["title"] = device;
+
+                    // deviceJson.endPoints["HEARTBEAT"] = {};
+                    // deviceJson.endPoints["HEARTBEAT"]["card-type"] = "crouton-heartbeat";
+                    // deviceJson.endPoints["HEARTBEAT"]["title"] = device;
+
                     for (var address in deviceJson.endPoints) { // address is the endpoint key
                         if (deviceJson.endPoints.hasOwnProperty(address)) {
                             console.log(address);
@@ -75,10 +77,19 @@
                             //If component has not been load, load it
                             if (this.loadedComponents.indexOf(elementName) == -1) {
                                 if (this.loadingComponents.indexOf(elementName) == -1) {
+
                                     var path = "./html";
+
                                     var elementImport = document.createElement("link");
                                     elementImport.rel = "import";
-                                    elementImport.href = path + "/" + elementName + ".html";
+
+                                    // if (elementName == "crouton-heartbeat"){
+                                    //     elementImport.href = "http://192.168.8.104/cors/crouton-heartbeat.html";
+                                    // }else{
+                                        elementImport.href = path + "/" + elementName + ".html";
+                                    // }
+
+
                                     elementImport.setAttribute("onload", "handleLoad(event)");
                                     document.head.appendChild(elementImport);
                                     this.push("loadingComponents", elementName);
@@ -126,6 +137,7 @@
                 relayout: function(element) {
                     if (element) {
                         this.container.appendChild(element);
+                        // ToDo: if specific ordering, maybe here
                         this.pckry.appended(element);
                         var draggie = new Draggabilly(element, {
                             handle: '.dragger'

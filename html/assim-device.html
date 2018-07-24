@@ -1,0 +1,138 @@
+<link rel="import" href="../static/common/bower/polymer/polymer.html" />
+<link rel="import" href="crouton-card.html" />
+<dom-module id="assim-device">
+    <template>
+    <link rel="stylesheet" href="../css/assim-device.css"/>
+    <link rel="import" href="../static/common/bower/paper-listbox/paper-listbox.html" />
+    <link rel="import" href="../static/common/bower/paper-item/paper-item.html" />
+    <crouton-card color="{{endPointJson.color}}">
+      <div class="dragger"></div>
+      <div class="expand">
+        <!-- SHOW HIDE ICON -->
+        <span  class="show_hide_img"><i on-click="toggleShowList" class="fa fa-eye" id="eye_icon"></i></span>
+        <!-- DEVICE FORM -->
+        <div id="device_form">
+            <div class="in-card-label">MQTT TOPICS</div>
+            <div class="in-card-details">/outbox/{{endPointJson.device_name}}/*</div>
+            <div class="in-card-details">/inbox/{{endPointJson.device_name}}/*</div>
+            <div class="in-card-label">WIFI SSID</div>
+            <div class="in-card-details">{{endPointJson.ssid}}</div>
+            <div class="in-card-label">IP ADDRESS</div>
+            <div class="in-card-details"><a href="http://{{endPointJson.ip_addr}}/" target="_blank">{{endPointJson.ip_addr}}</a></div>
+        </div>
+        <!-- SHOW HIDE LIST -->
+        <paper-listbox slot="dropdown-content" id="show_list" multi selected-values="{{selectedValues}}" on-selected-values-changed="toggleShowCards">
+            <template is="dom-repeat" items="{{endPointJson.endpoints}}">
+                <paper-item><element inner-h-t-m-l="{{_getFA(item.card-type)}}"></element> [[item.title]]</paper-item>
+            </template>
+        </paper-listbox>
+
+      </div>
+    </crouton-card>
+  </template>
+    <script>
+        (function() {
+            Polymer({
+                is: "assim-device",
+                properties: {
+                    endPointJson: {
+                        type: Object,
+                        notify: true
+                    },
+                    selectedValues: {
+                        notify: true,
+                        type: Array,
+                        value: () => []
+                    },
+                    isInternalUpdate: Boolean
+                },
+                observers: [
+                    'newValues(endPointJson.values.*)'
+                ],
+                newValues: function(changeRecord) {},
+                ready: function() {
+
+                },
+                toggleShowCards: function(event) {
+                    if (this.isInternalUpdate){
+                        return;
+                    }
+                    if (!event.detail.value.indexSplices){
+                        return;
+                    }
+                    var showingArray = event.detail.value.indexSplices[0].object;
+                    for (var i = 0; i < this.endPointJson.endpoints.length; i++){
+                        var card = this.getCardHTMLElement(i);
+                        if (showingArray.indexOf(i) == -1){
+                            card.style.display = "none";
+                        }else{
+                            card.style.display = "table-row-group"
+                        }
+                    }
+                    //console.log(event.detail.value.indexSplices[0].object);
+                },
+                _getFA: function(cardType){
+                    var fa = "";
+                    if (cardType == "crouton-simple-text"){
+                        fa = "fa-file-text-o";
+                    }else if (cardType == "crouton-simple-input"){
+                        fa = "fa-pencil";
+                    }else if (cardType == "crouton-simple-input"){
+                        fa = "fa-pencil";
+                    }else if (cardType == "crouton-simple-slider"){
+                        fa = "fa-sliders";
+                    }else if (cardType == "crouton-simple-button"){
+                        fa = "fa-circle-o";
+                    }else if (cardType == "crouton-simple-toggle"){
+                        fa = "fa-toggle-on";
+                    }else if (cardType == "crouton-chart-donut"){
+                        fa = "fa-pie-chart";
+                    }else if (cardType == "crouton-chart-line"){
+                        fa = "fa-line-chart";
+                    }else if (cardType == "crouton-simple-input"){
+                        fa = "fa-pencil";
+                    }else{// custom device hosted editors
+                        fa = "fa-list-alt";
+                    }
+                    return '<i class="inline-fa fa ' + fa + '"></i> ';
+                },
+                toggleShowList: function() {
+                    var showList = document.getElementById("show_list");
+                    var eyeIcon = document.getElementById("eye_icon");
+                    var deviceForm = document.getElementById("device_form");
+                    var showListDisplay = showList.style.display;
+                    if (showListDisplay == "none" || showListDisplay == ""){
+                        this.updateVisibleStatus();
+                        showList.style.display = "block";
+                        deviceForm.style.display = "none";
+                        eyeIcon.style.opacity = 1;
+                    }else{
+                        showList.style.display = "none";
+                        deviceForm.style.display = "inline-block";
+                        eyeIcon.style.opacity = 0.5;
+                    }
+                },
+                updateVisibleStatus: function(){
+                    this.isInternalUpdate = true;
+                    for (var i = 0; i < this.endPointJson.endpoints.length; i++){
+                        if (this.selectedValues.indexOf(i) == -1){
+                            if (this.isCardVisible(i)){
+                                this.$.show_list.selectIndex(i)
+                            }
+                        }
+                    }
+                    this.isInternalUpdate = false;
+                 },
+                isCardVisible: function(index){
+                    var card = this.getCardHTMLElement(index);
+                    return card.style.display != "none";
+                },
+                getCardHTMLElement: function(index){
+                    var id = "crouton-" + this.endPointJson.device_name + "-" + this.endPointJson.endpoints[index].endpoint;
+                    console.log(id);
+                    return document.getElementById(id);
+                }
+            });
+        }());
+    </script>
+</dom-module>

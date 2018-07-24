@@ -10,4 +10,4 @@ Do not remove cards with LWT.
 
 Heartbeat card - broken with LWT.
 
-Custom advanced editting cards (like scheduling) that add with flag from device info.
+Custom advanced editing cards (like scheduling) that add with flag from device info.
