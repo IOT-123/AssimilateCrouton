@@ -156,7 +156,7 @@
                             var endVal = "";
                             var endMins = ((j + 1) * mins);
                             if (endMins == 60) {
-                                endVal = this.pad(i + 1, 2) + ":00";
+                                endVal = this.pad(i + this.intervalHourIncrement, 2) + ":00";
                             } else {
                                 endVal = this.pad(i, 2) + ":" + this.pad(endMins, 2);
                             }

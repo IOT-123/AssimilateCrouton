@@ -30,7 +30,11 @@ Show/hide cards from "Device card"
 
 ![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-2a.png)
 
+### Weekview 3 hour intervals
 
+![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-3.png)
+
+![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-3a.png)
 
 ### assim-device
 
