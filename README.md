@@ -2,6 +2,10 @@
 
 The files are already rendered HTML/CSS from PUG/LESS.
 
+NPM has not been used other than for a webserver (npm start from root).
+
+I will fix NPM with an update to Polymer 3.
+
 ## Goals
 
 ~Color for each Device (considered by edfungus). Have piggy-backed endpointJson for now~.
