@@ -16,7 +16,27 @@ CORS friendly webcomponents hosted from WiFi thing webserver.
 
 Show/hide cards from "Device card"
 
+## Cards
+
+### Weekview 15 minute intervals
+
 ![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-1.png)
+
+![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-1a.png)
+
+### Weekview 1 hour intervals
+
+![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-2.png)
+
+![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-2a.png)
+
+### Weekview 3 hour intervals
+
+![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-3.png)
+
+![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-3a.png)
+
+### assim-device
 
 ![Device Card Default](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-device-1.png)
 

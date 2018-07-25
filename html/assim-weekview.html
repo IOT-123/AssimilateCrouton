@@ -116,12 +116,15 @@
                         notify: true,
                         type: Array,
                         value: () => []
-                    }
+                    },
+                    intervalHourIncrement: Number,
+                    intervalHourDivisions: Number
                 },
                 observers: [
                     'newValues(endPointJson.values.*)'
                 ],
                 ready: function () {
+                    this.setIntervals();
                     this.buildTimeArray('itemsDay');
                 },
                 attached: function () {
@@ -130,12 +133,25 @@
                 newValues: function (changeRecord) {
 
                 },
+                setIntervals: function(){
+                    var intervalMins = this.endPointJson.interval_mins;
+                    var hoursDecimal = intervalMins/60;
+                    this.intervalHourIncrement = hoursDecimal < 1 ? 1 : Math.floor(hoursDecimal);
+                    console.log("hourInc: " + this.intervalHourIncrement);
+                    if (hoursDecimal >= 1){
+                        this.intervalHourDivisions = 1;
+                    }else{
+                        var intervalMod = intervalMins % 60;
+                        var divs5min = intervalMod / 5;
+                        this.intervalHourDivisions = 12 / divs5min;
+                    }
+                    console.log("hourDivs: " + this.intervalHourDivisions);
+                },
                 buildTimeArray: function (timeArrayString) {
                     this[timeArrayString] = [];
-                    var hrDivs = 4;
-                    var mins = 60 / hrDivs;
-                    for (var i = 0; i < 24; i++) {
-                        for (var j = 0; j < hrDivs; j++) {
+                    var mins = 60 / this.intervalHourDivisions;
+                    for (var i = 0; i < 24; i = i + this.intervalHourIncrement) {
+                        for (var j = 0; j < this.intervalHourDivisions; j++) {
                             var startVal = this.pad(i, 2) + ":" + this.pad((j * mins), 2);
                             var endVal = "";
                             var endMins = ((j + 1) * mins);
