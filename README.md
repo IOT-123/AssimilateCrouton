@@ -4,7 +4,7 @@ The files are already rendered HTML/CSS from PUG/LESS.
 
 ## Goals
 
-Color for each Device (considered by edfungus). Have piggy-backed endpointJson for now.
+~Color for each Device (considered by edfungus). Have piggy-backed endpointJson for now~.
 
 Do not remove cards with LWT.
 
@@ -12,9 +12,9 @@ Heartbeat card - broken with LWT.
 
 Custom advanced editing cards (like scheduling) that add with flag from device info.
 
-CORS friendly webcomponents hosted from WiFi thing webserver.
+~CORS friendly webcomponents hosted from WiFi thing webserver~.
 
-Show/hide cards from "Device card"
+~Show/hide cards from "Device card"~
 
 ## Cards
 
