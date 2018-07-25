@@ -82,6 +82,18 @@
                         notify: true,
                         type: Array
                     },
+                    weekdayValues: {
+                        type: Array,
+                        value: [
+                            "selectedValuesSun", 
+                            "selectedValuesMon", 
+                            "selectedValuesTue", 
+                            "selectedValuesWed", 
+                            "selectedValuesThu", 
+                            "selectedValuesFri", 
+                            "selectedValuesSat"
+                        ]
+                    },
                     selectedValuesMon: {
                         notify: true,
                         type: Array,
@@ -126,26 +138,27 @@
                 ready: function () {
                     this.setIntervals();
                     this.buildTimeArray('itemsDay');
+                    this.startWatcherLoop();
                 },
                 attached: function () {
 
                 },
-                newValues: function (changeRecord) {
-
+                newValues: function (changeRecord) {//{"value": true}
+                    var nowDeviceOn = this.endPointJson.values.value;  // device is off
+                    // find thed current index 
+                    // if not as sent change
                 },
-                setIntervals: function(){
+                setIntervals: function () {
                     var intervalMins = this.endPointJson.interval_mins;
-                    var hoursDecimal = intervalMins/60;
+                    var hoursDecimal = intervalMins / 60;
                     this.intervalHourIncrement = hoursDecimal < 1 ? 1 : Math.floor(hoursDecimal);
-                    console.log("hourInc: " + this.intervalHourIncrement);
-                    if (hoursDecimal >= 1){
+                    if (hoursDecimal >= 1) {
                         this.intervalHourDivisions = 1;
-                    }else{
+                    } else {
                         var intervalMod = intervalMins % 60;
                         var divs5min = intervalMod / 5;
                         this.intervalHourDivisions = 12 / divs5min;
                     }
-                    console.log("hourDivs: " + this.intervalHourDivisions);
                 },
                 buildTimeArray: function (timeArrayString) {
                     this[timeArrayString] = [];
@@ -164,6 +177,33 @@
                             this.push(timeArrayString, item);
                         }
                     }
+                },
+                startWatcherLoop: function () {
+                    var p = this;
+                    setInterval(function () {
+                        var todaysSelectedStr = p.weekdayValues[new Date().getDay()];
+                        var todaysSelectedTimes = p[todaysSelectedStr];
+                        todaysSelectedTimes.forEach((i) => {
+                            var startTime = p.setNewTodayTime(p.itemsDay[i].start);
+                            var endTime = p.setNewTodayTime(p.itemsDay[i].end);
+                            var nowTime = new Date();
+                            if (startTime <= nowTime && nowTime <= endTime){
+                                // get value from endpoint
+                                // if true do nothing
+                                // if false set endpoint value true (see button or toggle)
+
+                            }
+                       })
+                    }, 5000); // every minute 60000
+                },
+                setNewTodayTime: function(timeStr){
+                    var newParts = timeStr.split(":");
+                    var newHrs = parseInt(newParts[0]);
+                    var newMins = parseInt(newParts[1]);
+                    var newTime = new Date();
+                    newTime.setHours(newHrs);
+                    newTime.setMinutes(newMins);
+                    return newTime;
                 },
                 pad: function (n, width, z) {
                     z = z || '0';

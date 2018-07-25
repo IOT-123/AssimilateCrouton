@@ -22,25 +22,25 @@ Custom advanced editing cards (like scheduling) that add with flag from device i
 
 ## Cards
 
-### Weekview 15 minute intervals
+### assim-weekview - 15 minute intervals
 
 ![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-1.png)
 
 ![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-1a.png)
 
-### Weekview 1 hour intervals
+### assim-weekview - 1 hour intervals
 
 ![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-2.png)
 
 ![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-2a.png)
 
-### Weekview 3 hour intervals
+### assim-weekview - 3 hour intervals
 
 ![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-3.png)
 
 ![Weekview Card](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-weekview-3a.png)
 
-### assim-device
+### assim-device - show/hide cards, device details
 
 ![Device Card Default](https://github.com/IOT-123/AssimilateCrouton/raw/master/images/assim-device-1.png)
 
