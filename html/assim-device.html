@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../css/assim-device.css"/>
     <link rel="import" href="../static/common/bower/paper-listbox/paper-listbox.html" />
     <link rel="import" href="../static/common/bower/paper-item/paper-item.html" />
-    <link rel="import" href="../static/common/bower/iron-signals/iron-signals.html">
+    <!-- <link rel="import" href="../static/common/bower/iron-signals/iron-signals.html"> -->
 
     <iron-signals on-iron-signal-hidecardsignal="_listenHideCardSignal"></iron-signals>
 
@@ -73,7 +73,6 @@
                             card.style.display = "table-row-group"
                         }
                     }
-                    //console.log(event.detail.value.indexSplices[0].object);
                 },
                 _getFA: function(cardType){
                     var fa = "";
@@ -140,14 +139,13 @@
                 },
                 _listenHideCardSignal: function(e){
                     if (e.detail != null){
+                        this.updateVisibleStatus();
                         var cardId = e.detail;
-                        // hide card
-                        document.getElementById(cardId).style.display = "none";
-                        // unselect listbox item
                         for (var i = 0; i < this.endPointJson.endpoints.length; i++){
                             var endpointId = this.getCardHTMLElementId(i);
                             if (endpointId == cardId){
                                 this.$.show_list.selectIndex(i);
+                                return;
                             }
                         }
                     }

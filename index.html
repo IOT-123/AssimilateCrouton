@@ -29,7 +29,6 @@
     <script>
         function handleLoad(e) {
             var card = e.target.href.split("/");
-            //alert(JSON.stringify(card));
             card = card[card.length - 1];
             card = card.split(".")[0];
             if (document.createEvent) {
@@ -44,8 +43,8 @@
                 window.fireEvent(event.eventType, event);
             }
         }
+
     </script>
-    <!-- <script src="http://localhost:35729/livereload.js"></script> -->
 </body>
 
 </html>

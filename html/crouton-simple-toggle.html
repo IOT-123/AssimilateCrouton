@@ -5,7 +5,12 @@
     <template>
     <link rel="stylesheet" href="../css/crouton-simple-toggle.css"/>
     <crouton-card color="{{endPointJson.color}}">
-      <div class="dragger"></div>
+      <div class="dragger">
+            <template is="dom-if" if="{{info}}">
+                <i class="info_button fa fa-info-circle" title="info" on-click="_makeToast"></i>
+            </template>
+            <i class="close_button fa fa-window-close" title="hide" on-click="_hideCard"></i>
+        </div>
       <div class="expand">
         <div class$="{{displayDim}}">
           <template is="dom-if" if="{{isIcon}}">
@@ -41,12 +46,20 @@
                     },
                     endPointName: {
                         type: String
+                    },
+                    info:  {
+                        type: String
                     }
                 },
                 observers: [
                     'newValues(endPointJson.values.*)'
                 ],
                 attached: function() {
+                    //ToDo: wire up endPointName upstream, is a kludge, orig repository did not work
+                    this.endPointName = this.endPointJson.endPointName;
+                    if (this.endPointJson.info){
+                        this.info = this.endPointJson.info;
+                    }
                     //If no icons, we need to make sure the text for the true/false labels are set
                     if (!this.endPointJson.icon) {
                         if (!this.endPointJson.labels) {
@@ -69,7 +82,7 @@
                         var newValue = {};
                         newValue.value = this.displayStatusBoolean;
                         that.mqtt.publishMessage("/inbox/" + that.deviceName + "/" + that.endPointName, JSON.stringify(newValue));
-                    })
+                    }, {passive: true})
                 },
                 newValues: function(changeRecord) {
                     //Change icon.text
@@ -93,6 +106,16 @@
                     }
                     //Ensure toggle in correct position
                     this.displayStatusBoolean = this.endPointJson.values.value;
+                },
+                _hideCard: function(e, detail){
+                    this.fire('iron-signal', {name: 'hidecardsignal',data: this.id});
+                },
+                _makeToast: function(){
+                    this.fire('makeToast', {
+                        message: this.info,
+                        duration: 3000,
+                        status: "info-circle"
+                    });
                 }
             });
         }());

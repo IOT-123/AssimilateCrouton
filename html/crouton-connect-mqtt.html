@@ -242,7 +242,12 @@
           if(typeof message != "string"){
             message = JSON.stringify(message);
           }
-          this.client.publish(topic, message);
+          var pulishCallback = function(err){
+            if (err){
+              console.log(err);
+            }
+          }
+          this.client.publish(topic, message, {}, pulishCallback);
         },
         noConnection: function(){
           if(this.connecting == true){

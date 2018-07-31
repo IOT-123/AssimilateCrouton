@@ -130,11 +130,21 @@ assim-weekview .dragger{
     height: 17px !important;
     z-index: 10000;
     opacity: 1;
-    width: 98% !important;
+    /* width: 98% !important; */
 }
 
 assim-weekview .dropShadow:hover .titleDisplay {
         -webkit-transform: scale(0.01, 1);
         -ms-transform: scale(0.01, 1);
         transform: scale(0.01, 1);
+}
+
+
+assim-weekview .close_button {
+    right: 1px !important;
+    top: 1px !important;
+}
+
+assim-weekview .info_button {
+    top: 1px !important;
 }

@@ -65,31 +65,22 @@
                 },
                 addDevice: function(device, deviceJson) {
 
-                    // deviceJson.endPoints["HEARTBEAT"] = {};
-                    // deviceJson.endPoints["HEARTBEAT"]["card-type"] = "crouton-heartbeat";
-                    // deviceJson.endPoints["HEARTBEAT"]["title"] = device;
-
                     for (var address in deviceJson.endPoints) { // address is the endpoint key
                         if (deviceJson.endPoints.hasOwnProperty(address)) {
-                            console.log(address);
                             var elementName = deviceJson.endPoints[address]["card-type"];
+                            deviceJson.endPoints[address]["endPointName"] = address;
                             deviceJson.endPoints[address]["color"] = deviceJson.color;
                             //If component has not been load, load it
                             if (this.loadedComponents.indexOf(elementName) == -1) {
                                 if (this.loadingComponents.indexOf(elementName) == -1) {
-
                                     var path = "./html";
 
+                                    if (deviceJson.endPoints[address]["path"]){
+                                        path = deviceJson.endPoints[address]["path"];
+                                    }
                                     var elementImport = document.createElement("link");
                                     elementImport.rel = "import";
-
-                                    // if (elementName == "crouton-heartbeat"){
-                                    //     elementImport.href = "http://192.168.8.104/cors/crouton-heartbeat.html";
-                                    // }else{
-                                        elementImport.href = path + "/" + elementName + ".html";
-                                    // }
-
-
+                                    elementImport.href = path + "/" + elementName + ".html";
                                     elementImport.setAttribute("onload", "handleLoad(event)");
                                     document.head.appendChild(elementImport);
                                     this.push("loadingComponents", elementName);

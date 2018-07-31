@@ -1,5 +1,6 @@
 
 <link rel="import" href="../static/common/bower/polymer/polymer.html"/>
+<link rel="import" href="../static/common/bower/digital-clock/digital-clock.html"/>
 <link rel="import" href="crouton-card.html"/>
 <link rel="import" href="crouton-connect-mqtt.html"/>
 <link rel="import" href="crouton-devices.html"/>
@@ -16,7 +17,7 @@
         <crouton-navigation id="crouton-navigation" current-page="{{currentPage}}"></crouton-navigation>
         <!--GETTING STARTED-->
         <div id="gettingStarted" class$="{{selectedPage('gettingStarted',currentPage,'holder')}}">
-          <crouton-getting-started></crouton-getting-started>
+          <!-- <crouton-getting-started></crouton-getting-started> -->
         </div>
         <!-- DASHBOARD-->
         <div id="dashboardHolder" class$="{{selectedPage('dashboard',currentPage,'holder')}}">
@@ -25,6 +26,7 @@
           </template>
           <crouton-dashboard current-page="{{currentPage}}" id="crouton-dashboard"></crouton-dashboard>
         </div>
+        <digital-clock id="clock1" locale="en-GB" seconds></digital-clock>
         <!-- CONNECTIONS-->
         <div class$="{{selectedPage('connections',currentPage,'holder')}}">
           <template is="dom-if" if="{{!mqttConnected}}">

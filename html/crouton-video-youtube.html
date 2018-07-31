@@ -2,29 +2,48 @@
 <link rel="import" href="crouton-card.html" />
 <dom-module id="crouton-video-youtube">
     <template>
-    <link rel="stylesheet" href="../css/crouton-video-youtube.css"/>
-    <crouton-card color="{{endPointJson.color}}">
-      <div class="dragger"></div>
-      <div class="expand">
-        <iframe src="{{youtubeURL}}" title="YouTube video player" allowfullscreen="1" id="player" frameborder="0" height="100%" width="100%" class="style-scope google-youtube"></iframe>
-        <div class="titleDisplay">{{displayStatusText}}</div>
-      </div>
-    </crouton-card>
-  </template>
+        <link rel="stylesheet" href="../css/crouton-video-youtube.css" />
+        <crouton-card color="{{endPointJson.color}}">
+            <div class="dragger">
+                <template is="dom-if" if="{{info}}">
+                    <i class="info_button fa fa-info-circle" title="info" on-click="_makeToast"></i>
+                </template>
+                <i class="close_button fa fa-window-close" title="hide" on-click="_hideCard"></i>
+            </div>
+            <div class="expand">
+                <iframe src="{{youtubeURL}}" title="YouTube video player" allowfullscreen="1" id="player" frameborder="0" height="100%" width="100%"
+                    class="style-scope google-youtube"></iframe>
+                <div class="titleDisplay">{{displayStatusText}}</div>
+            </div>
+        </crouton-card>
+    </template>
     <script>
-        (function() {
+        (function () {
             Polymer({
                 is: "crouton-video-youtube",
-                ready: function() {},
+                ready: function () { },
                 properties: {
                     endPointJson: {
                         type: Object,
                         notify: true
+                    },
+                    info:  {
+                        type: String
                     }
                 },
-                attached: function() {
+                attached: function () {
                     this.displayStatusText = this.endPointJson.title;
                     this.youtubeURL = "https://www.youtube.com/embed/" + this.endPointJson.values.youtubeID + "?playsinline=1&amp;controls=0&amp;autohide=0&amp;autoplay=1&amp;video-id=GZnb3jQ2YZo";
+                },
+                _hideCard: function(e, detail){
+                    this.fire('iron-signal', {name: 'hidecardsignal',data: this.id});
+                },
+                _makeToast: function(){
+                    this.fire('makeToast', {
+                        message: this.info,
+                        duration: 3000,
+                        status: "info-circle"
+                    });
                 }
             });
         }());
