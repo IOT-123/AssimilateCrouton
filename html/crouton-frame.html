@@ -26,7 +26,6 @@
           </template>
           <crouton-dashboard current-page="{{currentPage}}" id="crouton-dashboard"></crouton-dashboard>
         </div>
-        <digital-clock id="clock1" locale="en-GB" seconds></digital-clock>
         <!-- CONNECTIONS-->
         <div class$="{{selectedPage('connections',currentPage,'holder')}}">
           <template is="dom-if" if="{{!mqttConnected}}">
@@ -48,14 +47,12 @@
           var that = this;
           this.values = {};
           this.randomClientName = "crouton-client" + Math.floor((Math.random() * 100) + 1).toString();
-    
           //todo: implement mobile compatibility
           // if (window.matchMedia('only screen and (max-width: 668px)').matches) {
           //   this.isMobile = true;
           // } else {
           //   this.isMobile = false;
           // }
-    
           this.toastContainer = document.getElementById("toasts");
           addEventListener('makeToast', function(event){
             var params = event.detail;
@@ -80,12 +77,18 @@
               toast.remove();
             }, params.duration + 600);
           });
-    
           this.mqttConnected = false;
           document.getElementById("crouton-frame").addEventListener("mqttConnection", function(event){
             that.mqttConnected = document.getElementById("crouton-mqtt").connected;
           });
-    
+          // load clock later as it sucks processing away from loads/inits causing issues
+          var timeContainer = document.querySelector("crouton-container div.grid");
+          var timeElem = document.createElement('digital-clock');
+          timeElem.setAttribute('id', 'clock1');
+          timeElem.setAttribute('locale', 'en-GB');
+          timeElem.setAttribute('seconds', null);
+          timeContainer.appendChild(timeElem);
+          //console.log(timeContainer);
         },
         properties: {
         },

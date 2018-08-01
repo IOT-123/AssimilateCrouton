@@ -9,7 +9,9 @@
                 <template is="dom-if" if="{{info}}">
                     <i class="info_button fa fa-info-circle" title="info" on-click="_makeToast"></i>
                 </template>
-                <i class="close_button fa fa-window-close" title="hide" on-click="_hideCard"></i>
+                <template is="dom-if" if="{{isDeviceCardLoaded}}">
+                    <i class="close_button fa fa-window-close" title="hide" on-click="_hideCard"></i>
+                </template>  
             </div>
             <div class="expand">
                 <div class="textDisplay">{{endPointJson.values.value}}</div>
@@ -46,7 +48,8 @@
                     },
                     info:  {
                         type: String
-                    }
+                    },
+                    isDeviceCardLoaded: Boolean
                 },
                 observers: [
                     'newValues(endPointJson.values.*)'
@@ -56,7 +59,8 @@
                     this.endPointName = this.endPointJson.endPointName;
                     if (this.endPointJson.info){
                         this.info = this.endPointJson.info;
-                    }
+                    }                    var deviceSelector = "assim-device[id^=crouton-" + this.deviceName + "]";
+                    this.isDeviceCardLoaded = document.querySelector(deviceSelector);
                     this.mqtt = document.getElementById("crouton-mqtt");
                     this.slider = this.$.slider;
                     this.slider.value = this.endPointJson.values.value;

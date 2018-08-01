@@ -14,7 +14,7 @@
       <p class="header"><span>MQTT Broker</span><span class="subTitle">{{displayConnected(connected,connecting)}}</span></p>
       <form id="mqttConnectForm" is="iron-form" name="connectCrouton" class="grid contentMarginFix">
         <div class="grid__col grid__col--9-of-12">
-          <paper-input label="Broker Address" type="text" value="{{address::input}}" disabled$="{{disableInput(connected)}}" required="required"></paper-input>
+          <paper-input label="Broker Address" type="text" value="{{address::input}}" disabled$="{{disableInput(connected)}}" required="required" id="broker_address"></paper-input>
         </div>
         <div class="grid__col grid__col--3-of-12">
           <paper-input label="Port" type="text" pattern="^[0-9]{1,6}$" value="{{port::input}}" disabled$="{{disableInput(connected)}}" auto-validate="auto-validate" required="required"></paper-input>

@@ -21,8 +21,8 @@
     <!--js imports-->
     <!--external-->
     <script src="../js/browserMqtt.js"></script>
-    <script src="../js/webcomponents-lite.js"></script>
     <script src="../js/packery.pkgd.min.js"></script>
+    <script src="../js/webcomponents-lite.js"></script>
     <script src="../js/draggabilly.pkgd.min.js"></script>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/chartist.min.js"></script>
@@ -42,6 +42,23 @@
                 event.eventType = "crouton-import-loaded";
                 window.fireEvent(event.eventType, event);
             }
+        }
+
+        function corsLinkOnError(href) {
+            // file must live in one of these locations
+            var libraryRoot = "/static/";
+            var htmlRoot = "/html/";
+            var startIndex = href.indexOf(libraryRoot);
+            if (startIndex === -1){
+                startIndex = href.indexOf(htmlRoot);
+            }
+            var libraryRelativePath = href.substr(startIndex);
+            var documentRoot = window.location.href.substr(0, window.location.href.lastIndexOf('/'));
+            var fixedLinkPath = documentRoot + libraryRelativePath;
+            var linkElem = document.createElement('link');
+            linkElem.setAttribute('rel', 'import');
+            linkElem.setAttribute('href', fixedLinkPath);
+            document.head.appendChild(linkElem);
         }
 
     </script>

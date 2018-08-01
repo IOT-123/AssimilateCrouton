@@ -14,11 +14,24 @@ Do not remove cards with LWT.
 
 Heartbeat card - broken with LWT.
 
-Custom advanced editing cards (like scheduling) that add with flag from device info.
+~Custom advanced editing cards (like scheduling) that add with flag from device info~
 
-~CORS friendly webcomponents hosted from WiFi thing webserver~.
+~CORS friendly webcomponents hosted from WiFi thing webserver~
 
 ~Show/hide cards from "Device card"~
+
+
+## Hosting
+
+You can test the dashboard locally on your DEV box:
+- From the commandline in the root folder
+- npm start <enter>
+- the lite-server is spun up for http://localhost:10001
+
+Deploy to a static webserver:
+- copy all folders except node_modules
+- copy index.html (and possibly web.config)
+
 
 ## Cards
 

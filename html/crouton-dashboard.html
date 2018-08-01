@@ -22,7 +22,6 @@
                     this.cardIndex = {};
                     this.cardValues = {};
                     this.cardsToBeAdded = [];
-
                     var that = this;
                     window.addEventListener("crouton-import-loaded", function(event) {
                         that.push("loadedComponents", event.card);
@@ -74,7 +73,6 @@
                             if (this.loadedComponents.indexOf(elementName) == -1) {
                                 if (this.loadingComponents.indexOf(elementName) == -1) {
                                     var path = "./html";
-
                                     if (deviceJson.endPoints[address]["path"]){
                                         path = deviceJson.endPoints[address]["path"];
                                     }

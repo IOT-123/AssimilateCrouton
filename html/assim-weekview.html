@@ -1,7 +1,7 @@
-<link rel="import" href="../static/common/bower/polymer/polymer.html" onerror="resourceOnError(this)" />
-<link rel="import" href="crouton-card.html" />
-<link rel="import" href="../static/common/bower/paper-listbox/paper-listbox.html" onerror="resourceOnError(this)" />
-<link rel="import" href="../static/common/bower/paper-item/paper-item.html" onerror="resourceOnError(this)" />
+<link rel="import" href=".x./static/common/bower/paper-listbox/paper-listbox.html" onerror="corsLinkOnError(this.href)" />
+<link rel="import" href=".x./static/common/bower/polymer/polymer.html" onerror="corsLinkOnError(this.href)" />
+<link rel="import" href="crouton-card.htmxl"  onerror="corsLinkOnError(this.href)" />
+<link rel="import" href=".x./static/common/bower/paper-item/paper-item.html" onerror="corsLinkOnError(this.href)" />
 <dom-module id="assim-weekview">
     <template>
         <link rel="stylesheet" href="../css/assim-weekview.css" />
@@ -17,7 +17,9 @@
                 <template is="dom-if" if="{{info}}">
                     <i class="info_button fa fa-info-circle" title="info" on-click="_makeToast"></i>
                 </template>
-                <i class="close_button fa fa-window-close" title="hide" on-click="_hideCard"></i>
+                <template is="dom-if" if="{{isDeviceCardLoaded}}">
+                    <i class="close_button fa fa-window-close" title="hide" on-click="_hideCard"></i>
+                </template>                    
             </div>
             <div class="expand">
                 <!--ToDo: create wwebcomponents for reused controls - id, selected-values, on-selected-values-changed, items -->
@@ -132,13 +134,16 @@
                     intervalHourIncrement: Number,
                     intervalHourDivisions: Number,
                     info: String,
-                    isInternalUpdate: Boolean
+                    isInternalUpdate: Boolean,
+                    isDeviceCardLoaded: Boolean
                 },
                 observers: [
                     'newValues(endPointJson.values.*)'
                 ],
                 ready: function () {
-                    this.getSelectionsFromStorage();
+                    var that = this;
+                    // delay state selection because embedded libraries may need to be loaded twice (one with a 404)
+                    setTimeout(function(){that.getSelectionsFromStorage()}, 500);
                 },
                 attached: function () {
                     this.endPointName = this.endPointJson.endPointName;
@@ -146,6 +151,8 @@
                         this.info = this.endPointJson.info;
                     }
                     this.mqtt = document.getElementById("crouton-mqtt");
+                    var deviceSelector = "assim-device[id^=crouton-" + this.deviceName + "]";
+                    this.isDeviceCardLoaded = document.querySelector(deviceSelector);
                 },
                 // MQTT values changed event
                 newValues: function (changeRecord) {//{"value": true}

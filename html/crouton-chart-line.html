@@ -8,7 +8,9 @@
                 <template is="dom-if" if="{{info}}">
                     <i class="info_button fa fa-info-circle" title="info" on-click="_makeToast"></i>
                 </template>
-                <i class="close_button fa fa-window-close" title="hide" on-click="_hideCard"></i>
+                <template is="dom-if" if="{{isDeviceCardLoaded}}">
+                    <i class="close_button fa fa-window-close" title="hide" on-click="_hideCard"></i>
+                </template>  
             </div>
             <div class="expand">
                 <div id="chartDisplay"></div>
@@ -27,7 +29,8 @@
                     },
                     info:  {
                         type: String
-                    }
+                    },
+                    isDeviceCardLoaded: Boolean
                 },
                 observers: [
                     'newValues(endPointJson.values.*)'
