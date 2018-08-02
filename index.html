@@ -14,18 +14,22 @@
 <body ng-app="Crouton">
     <crouton-frame id="crouton-frame"></crouton-frame>
     <!--css import-->
+    <!-- #region -->
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/chartist.min.css">
     <link rel="stylesheet" href="../css/toast.css">
     <link rel="stylesheet" href="../css/tmpl.css">
+    <!-- #endregion -->
     <!--js imports-->
     <!--external-->
+    <!-- #region -->
     <script src="../js/browserMqtt.js"></script>
     <script src="../js/packery.pkgd.min.js"></script>
     <script src="../js/webcomponents-lite.js"></script>
     <script src="../js/draggabilly.pkgd.min.js"></script>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/chartist.min.js"></script>
+    <!-- #endregion -->
     <script>
         function handleLoad(e) {
             var card = e.target.href.split("/");
@@ -48,6 +52,7 @@
             // file must live in one of these locations
             var libraryRoot = "/static/";
             var htmlRoot = "/html/";
+            // build the path to the website dependencies instead of the CORS ones
             var startIndex = href.indexOf(libraryRoot);
             if (startIndex === -1){
                 startIndex = href.indexOf(htmlRoot);
@@ -55,12 +60,12 @@
             var libraryRelativePath = href.substr(startIndex);
             var documentRoot = window.location.href.substr(0, window.location.href.lastIndexOf('/'));
             var fixedLinkPath = documentRoot + libraryRelativePath;
+            // load the website resource instead
             var linkElem = document.createElement('link');
             linkElem.setAttribute('rel', 'import');
             linkElem.setAttribute('href', fixedLinkPath);
             document.head.appendChild(linkElem);
         }
-
     </script>
 </body>
 

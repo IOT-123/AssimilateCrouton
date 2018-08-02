@@ -269,14 +269,18 @@
                     if (!event.detail.value.indexSplices) return;
                     var day = event.currentTarget.id.substr(5, 3);
                     var daySelectedStr = "selectedValues" + day;
-                    var daySelectedArray = this[daySelectedStr];
+                     var daySelectedArray = this[daySelectedStr];
                     var dayKey = this.endPointName + "_" + day;
                     this.setSelectionToStorage(dayKey, daySelectedArray);
                     if (this.isInternalUpdate) {
                         this.isInternalUpdate = false;
                         return;
                     }
-                    //ToDo: this is not specific for the day, tomorraw at this time will trigger device
+                    // check if selection was today
+                    var now = new Date();
+                    var nowDayIndex = now.getDay();
+                    var nowSelectedStr =  this.weekdayValues[nowDayIndex];
+                    if (nowSelectedStr !== daySelectedStr) return; // not today
                     var isUiOn = event.detail.value.indexSplices["0"].addedCount > 0;
                     var currentItemIdx = -1;
                     if (isUiOn) {
